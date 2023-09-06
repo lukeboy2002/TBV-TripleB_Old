@@ -21,9 +21,10 @@
 </head>
 
 <body class="antialiased relative bg-white dark:bg-gray-800 max-w-full">
-<div class="min-h-screen flex flex-col overflow-hidden">
+<div class="min-h-screen flex flex-col">
     <div class="z-50">
         <x-messages />
+        {{--            <x-popups.banner />--}}
     </div>
 
     <section class="w-screen mx-auto flex justify-center">
@@ -33,7 +34,7 @@
         </nav>
     </section>
 
-    <main class="lg:flex-grow">
+    <main class="lg:flex-grow px-2 sm:px-0">
         <div class="md:grid md:grid-cols-12">
             <div class="md:col-span-12">
                 {{ $slot }}
@@ -48,6 +49,8 @@
         <x-main-layout.footer />
     </footer>
 </div>
+
+@stack('modals')
 
 <livewire:scripts />
 @stack('scripts')
