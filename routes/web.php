@@ -27,4 +27,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth:web', config('jetstrea
     Route::get('settings', function () {
         return view('admin.dashboard');
     })->name('settings');
+
+    Route::resource('permissions', \App\Http\Controllers\Admin\PermissionController::class);
+    Route::resource('roles', \App\Http\Controllers\Admin\RoleController::class);
 });

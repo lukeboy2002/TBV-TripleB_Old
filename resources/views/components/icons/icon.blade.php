@@ -1,17 +1,59 @@
 @props(['name'])
 
-@if ($name === 'down-arrow')
-    <svg {{ $attributes(['class' => 'ml-2 w-4 h-4 text-white']) }}
-         aria-hidden="true"
+{{--@if ($name === 'down-arrow')--}}
+{{--    <svg {{ $attributes(['class' => 'ml-2 w-4 h-4 text-white']) }}--}}
+{{--         aria-hidden="true"--}}
+{{--         fill="none"--}}
+{{--         stroke="currentColor"--}}
+{{--         viewBox="0 0 24 24"--}}
+{{--         xmlns="http://www.w3.org/2000/svg">--}}
+{{--        <path stroke-linecap="round"--}}
+{{--              stroke-linejoin="round"--}}
+{{--              stroke-width="2"--}}
+{{--              d="M19 9l-7 7-7-7">--}}
+{{--        </path>--}}
+{{--    </svg>--}}
+{{--@endif--}}
+
+@if ($name === 'dirnotset')
+    <svg class="ml-1 w-4 h-4"
          fill="none"
-         stroke="currentColor"
          viewBox="0 0 24 24"
+         stroke-width="1.5"
+         stroke="currentColor"
          xmlns="http://www.w3.org/2000/svg">
         <path stroke-linecap="round"
               stroke-linejoin="round"
-              stroke-width="2"
-              d="M19 9l-7 7-7-7">
-        </path>
+              d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
+        />
+    </svg>
+@endif
+
+@if ($name === 'asc')
+    <svg class="ml-1 w-4 h-4"
+         fill="none"
+         viewBox="0 0 24 24"
+         stroke-width="1.5"
+         stroke="currentColor"
+         xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M4.5 15.75l7.5-7.5 7.5 7.5"
+        />
+    </svg>
+@endif
+
+@if ($name === 'desc')
+    <svg class="ml-1 w-4 h-4"
+         fill="none"
+         viewBox="0 0 24 24"
+         stroke-width="1.5"
+         stroke="currentColor"
+         xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M19.5 8.25l-7.5 7.5-7.5-7.5"
+        />
     </svg>
 @endif
 

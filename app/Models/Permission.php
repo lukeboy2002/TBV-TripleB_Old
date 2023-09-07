@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Permission extends \Spatie\Permission\Models\Permission
 {
     use HasFactory;
+
+    public function scopeSearch($query, $value) {
+        $query->where('name', 'like', "%{$value}%");
+    }
 }
