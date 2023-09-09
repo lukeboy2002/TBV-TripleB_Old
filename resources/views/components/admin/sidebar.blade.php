@@ -12,10 +12,10 @@
             </x-link.btn-menu>
 {{--            <x-main-layout.hr class="pb-4"/>--}}
 {{--            @if(current_user()->hasRole('admin'))--}}
-            <x-link.btn-menu href="#" :active="request()->routeIs('admin.permissions*')">
+            <x-link.btn-menu href="{{ route('admin.permissions.index') }}" :active="request()->routeIs('admin.permissions*')">
                 <i class="fa-solid fa-list mr-2"></i>Permissions
             </x-link.btn-menu>
-            <x-link.btn-menu href="#" :active="request()->routeIs('admin.roles*')">
+            <x-link.btn-menu href="{{ route('admin.roles.index') }}" :active="request()->routeIs('admin.roles*')">
                 <i class="fa-solid fa-list mr-2"></i>Roles
             </x-link.btn-menu>
 {{--            @endif--}}
