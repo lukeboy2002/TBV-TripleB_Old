@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Livewire\Admin\Permissions;
+namespace App\Livewire\Admin\Users;
 
-use App\Models\Permission;
+use App\Models\User;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -15,11 +15,7 @@ class All extends Component
 
     #[Url(history:true)]
     public $search ='';
-//    Add to Model
-//    public function scopeSearch($query, $value) {
-//        $query->where('name', 'like', "%{$value}%")
-//        ->orWhere('.....', 'like', "%{$value}%");
-//    }
+
     #[Url(history:true)]
     public $sortBy = 'created_at';
 
@@ -32,22 +28,6 @@ class All extends Component
     public function updatedSearch(){
         $this->resetPage();
     }
-
-    public function delete(Permission $permission){
-        $permission->delete();
-    }
-
-//    public function setDeleteId($id) {
-//        $this->delete_id = $id;
-//    }
-//
-//    public function delete() {
-//        $permission = Permission::where('id', $this->delete_id)->first();
-//        $permission->delete();
-//
-//        session()->flash('success', 'Permission successfully deleted.');
-//        $this->dispatch('hide:popup-delete');
-//    }
 
     public function setSortBy($sortByField){
 
@@ -62,9 +42,11 @@ class All extends Component
 
     public function render()
     {
-        return view('livewire.admin.permissions.all', [
-            'permissions' => Permission::search($this->search)
+        return view('livewire.admin.users.all', [
+            'users' => User::search($this->search)
+                ->leftJoin('model_has_roles as role', 'id', '=', 'role.model_id')
                 ->orderBy($this->sortBy,$this->sortDir)
+                ->withTrashed()
                 ->paginate($this->perPage)
         ]);
     }

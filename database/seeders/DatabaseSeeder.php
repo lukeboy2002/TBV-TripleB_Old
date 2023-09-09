@@ -42,6 +42,7 @@ class DatabaseSeeder extends Seeder
         $this->call(RolandSeeder::class);
         $this->call(RonSeeder::class);
         $this->call(RuudSeeder::class);
+        $this->call(UserSeeder::class);
 
 
         // \App\Models\User::factory(10)->create();

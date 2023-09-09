@@ -31,7 +31,13 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $fillable = [
         'username',
         'email',
+        'invited_by',
         'password',
+        'email_verified_at',
+        'image',
+        'logged_in',
+        'last_login_time',
+        'last_login_ip',
     ];
 
     /**
@@ -53,6 +59,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'last_login_time' => 'datetime',
     ];
 
     /**
@@ -63,6 +70,16 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function scopeSearch($query, $value) {
+        $query->where('username', 'like', "%{$value}%")
+            ->orWhere('email', 'like', "%{$value}%");
+    }
+
+    public function getLastLoginTime()
+    {
+        return $this->last_login_time->format('d F Y - H:m:s');
+    }
 
     public function member(): HasOne
     {
