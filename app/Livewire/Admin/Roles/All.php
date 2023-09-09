@@ -11,6 +11,8 @@ class All extends Component
 {
     use WithPagination;
 
+    public $delete_id;
+
     #[Url(history:true)]
     public $search ='';
 
@@ -27,8 +29,16 @@ class All extends Component
         $this->resetPage();
     }
 
-    public function delete(Role $role) {
+    public function setDeleteId($id) {
+        $this->delete_id = $id;
+    }
+
+    public function delete() {
+        $role = Role::where('id', $this->delete_id)->first();
         $role->delete();
+
+        session()->flash('success', 'Permission successfully deleted.');
+        $this->dispatch('hide:popup-delete');
     }
 
     public function setSortBy($sortByField){

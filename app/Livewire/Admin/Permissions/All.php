@@ -11,6 +11,8 @@ class All extends Component
 {
     use WithPagination;
 
+    public $delete_id;
+
     #[Url(history:true)]
     public $search ='';
 //    Add to Model
@@ -31,8 +33,16 @@ class All extends Component
         $this->resetPage();
     }
 
-    public function delete(Permission $permission) {
+    public function setDeleteId($id) {
+        $this->delete_id = $id;
+    }
+
+    public function delete() {
+        $permission = Permission::where('id', $this->delete_id)->first();
         $permission->delete();
+
+        session()->flash('success', 'Permission successfully deleted.');
+        $this->dispatch('hide:popup-delete');
     }
 
     public function setSortBy($sortByField){
