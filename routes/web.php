@@ -28,6 +28,10 @@ Route::prefix('admin')->name('admin.')->middleware(['auth:web', config('jetstrea
         return view('admin.dashboard');
     })->name('settings');
 
-    Route::resource('permissions', \App\Http\Controllers\Admin\PermissionController::class);
-    Route::resource('roles', \App\Http\Controllers\Admin\RoleController::class);
+    Route::post('/permissions/{permission}/roles', [\App\Http\Controllers\Admin\PermissionController::class, 'assignRole'])->name('permissions.roles');
+    Route::delete('/permissions/{permission}/roles/{role}', [\App\Http\Controllers\Admin\PermissionController::class, 'removeRole'])->name('permissions.roles.revoke');
+    Route::resource('permissions', \App\Http\Controllers\Admin\PermissionController::class)->except('show', 'destroy');
+    route::post('roles/{role}/permissions', [\App\Http\Controllers\Admin\RoleController::class, 'givePermission'])->name('roles.permissions');
+    Route::delete('/roles/{role}/permissions/{permission}', [\App\Http\Controllers\Admin\RoleController::class, 'revokePermission'])->name('roles.permissions.revoke');
+    Route::resource('roles', \App\Http\Controllers\Admin\RoleController::class)->except('show', 'destroy');
 });

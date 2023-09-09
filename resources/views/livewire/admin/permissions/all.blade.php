@@ -30,7 +30,12 @@
                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                         {{ $permission->name }}
                     </th>
-                    <td class="px-6 py-4 text-right">
+                    <td class="px-6 py-4 text-right space-x-2">
+                        <x-link.btn-primary
+                            href="{{ route('admin.permissions.edit' , $permission) }}"
+                            class="px-2.5 py-2.5 text-xs font-medium"><i class="fa-solid fa-pen-to-square"></i>
+                        </x-link.btn-primary>
+
                         <x-button.danger
                             type="button"
                             onclick="confirm('Are you sure you want to delete {{ $permission->name }} ?') || event.stopImmediatePropagation()"
