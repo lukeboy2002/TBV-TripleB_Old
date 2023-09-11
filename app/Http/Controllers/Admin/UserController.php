@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -62,5 +63,33 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         //
+    }
+
+    public function trashed()
+    {
+        //
+    }
+
+    public function trashedRestore(Request $request, $id)
+    {
+        $user = User::onlyTrashed()->findOrFail($id);
+        $user->restore();
+
+        $request->session()->flash('success', 'User has been restored');
+
+        return back();
+    }
+
+    public function trashedDelete(Request $request, $id)
+    {
+        $user = User::onlyTrashed()->findOrFail($id);
+        $profile_photo_path = $user->profile_photo_path;
+
+        Storage::delete($profile_photo_path);
+
+        $user->forceDelete();
+        $request->session()->flash('success', 'User has been completed deleted');
+
+        return back();
     }
 }

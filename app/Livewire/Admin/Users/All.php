@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Admin\Users;
 
+use App\Models\Permission;
 use App\Models\User;
 use Livewire\Attributes\Url;
 use Livewire\Component;
@@ -27,6 +28,10 @@ class All extends Component
 
     public function updatedSearch(){
         $this->resetPage();
+    }
+
+    public function delete(User $user){
+        $user->delete();
     }
 
     public function setSortBy($sortByField){

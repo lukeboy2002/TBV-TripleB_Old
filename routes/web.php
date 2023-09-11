@@ -28,6 +28,10 @@ Route::prefix('admin')->name('admin.')->middleware(['auth:web', config('jetstrea
         return view('admin.dashboard');
     })->name('settings');
 
+    Route::get('users/trashed', [\App\Http\Controllers\Admin\UserController::class, 'trashed'])->name('users.trashed');
+    Route::get('users/trashed/{id}/restore', [\App\Http\Controllers\Admin\UserController::class, 'trashedRestore'])->name('users.trashed.restore');
+    Route::get('users/trashed/{id}/forse_delete', [\App\Http\Controllers\Admin\UserController::class, 'trashedDelete'])->name('users.trashed.destroy');
+
     Route::resource('users', \App\Http\Controllers\Admin\UserController::class);
 
     Route::post('/permissions/{permission}/roles', [\App\Http\Controllers\Admin\PermissionController::class, 'assignRole'])->name('permissions.roles');
