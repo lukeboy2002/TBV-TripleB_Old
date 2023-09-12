@@ -34,6 +34,9 @@ Route::prefix('admin')->name('admin.')->middleware(['auth:web', config('jetstrea
 
     Route::resource('users', \App\Http\Controllers\Admin\UserController::class);
 
+    Route::post('member', [\App\Http\Controllers\admin\Membercontroller::class, 'upload'])->name('member.upload');
+
+
     Route::post('/permissions/{permission}/roles', [\App\Http\Controllers\Admin\PermissionController::class, 'assignRole'])->name('permissions.roles');
     Route::delete('/permissions/{permission}/roles/{role}', [\App\Http\Controllers\Admin\PermissionController::class, 'removeRole'])->name('permissions.roles.revoke');
     Route::resource('permissions', \App\Http\Controllers\Admin\PermissionController::class)->except('show', 'destroy');

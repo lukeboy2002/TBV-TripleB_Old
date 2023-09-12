@@ -8,7 +8,6 @@
             @endif
 
             @role('member')
-            <livewire:profile.update-member-information-form :user="$user" />
 
             <x-main-layout.hr class="py-8"/>
             @endrole

@@ -22,7 +22,8 @@ class Member extends Model implements HasMedia
         'image',
         'bio',
         'city',
-        'birthdate',
+        'birthday',
+        'active',
         'points',
         'played_games',
         'won_games',
@@ -37,7 +38,7 @@ class Member extends Model implements HasMedia
 
     public function age()
     {
-        return Carbon::parse($this->attributes['birthdate'])->age;
+        return Carbon::parse($this->attributes['birthday'])->age;
     }
 
     public function registerMediaConversions(Media $media = null): void
