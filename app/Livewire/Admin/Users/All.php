@@ -50,6 +50,8 @@ class All extends Component
         return view('livewire.admin.users.all', [
             'users' => User::search($this->search)
                 ->leftJoin('model_has_roles as role', 'id', '=', 'role.model_id')
+                ->leftJoin('roles', 'role.role_id', '=', 'roles.id') // Join the roles table
+                ->select('users.*', 'roles.name as role_name') // Select the role name
                 ->orderBy($this->sortBy,$this->sortDir)
                 ->withTrashed()
                 ->paginate($this->perPage)
