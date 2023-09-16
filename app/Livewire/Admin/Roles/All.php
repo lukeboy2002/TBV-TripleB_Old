@@ -29,17 +29,20 @@ class All extends Component
         $this->resetPage();
     }
 
-    public function setDeleteId($id) {
-        $this->delete_id = $id;
-    }
-
-    public function delete() {
-        $role = Role::where('id', $this->delete_id)->first();
+    public function delete(Role $role){
         $role->delete();
-
-        session()->flash('success', 'Permission successfully deleted.');
-        $this->dispatch('hide:popup-delete');
     }
+//    public function setDeleteId($id) {
+//        $this->delete_id = $id;
+//    }
+//
+//    public function delete() {
+//        $role = Role::where('id', $this->delete_id)->first();
+//        $role->delete();
+//
+//        session()->flash('success', 'Permission successfully deleted.');
+//        $this->dispatch('hide:popup-delete');
+//    }
 
     public function setSortBy($sortByField){
 

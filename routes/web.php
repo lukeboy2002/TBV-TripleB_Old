@@ -28,6 +28,15 @@ Route::prefix('admin')->name('admin.')->middleware(['auth:web', config('jetstrea
         return view('admin.dashboard');
     })->name('settings');
 
+    Route::get('users/trashed', [\App\Http\Controllers\Admin\UserController::class, 'trashed'])->name('users.trashed');
+    Route::get('users/trashed/{id}/restore', [\App\Http\Controllers\Admin\UserController::class, 'trashedRestore'])->name('users.trashed.restore');
+    Route::get('users/trashed/{id}/forse_delete', [\App\Http\Controllers\Admin\UserController::class, 'trashedDelete'])->name('users.trashed.destroy');
+
+    Route::resource('users', \App\Http\Controllers\Admin\UserController::class);
+
+    Route::post('member', [\App\Http\Controllers\admin\Membercontroller::class, 'upload'])->name('member.upload');
+
+
     Route::post('/permissions/{permission}/roles', [\App\Http\Controllers\Admin\PermissionController::class, 'assignRole'])->name('permissions.roles');
     Route::delete('/permissions/{permission}/roles/{role}', [\App\Http\Controllers\Admin\PermissionController::class, 'removeRole'])->name('permissions.roles.revoke');
     Route::resource('permissions', \App\Http\Controllers\Admin\PermissionController::class)->except('show', 'destroy');

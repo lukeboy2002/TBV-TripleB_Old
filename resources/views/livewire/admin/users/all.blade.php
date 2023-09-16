@@ -5,52 +5,89 @@
             <x-search/>
         </div>
         <div class="pr-2">
-            <x-link.btn-primary href="{{ route('admin.roles.create') }}" class="px-5 py-2.5 text-sm font-medium">
-                New role
+{{--            <x-link.btn-primary href="{{ route('admin.users.invite') }}" class="px-5 py-2.5 text-sm font-medium">--}}
+            <x-link.btn-primary href="#" class="px-5 py-2.5 text-sm font-medium">
+                Invite User
             </x-link.btn-primary>
         </div>
     </div>
-
-    @if (!$roles->isEmpty())
+    @if (!$users->isEmpty())
         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
                 @include('livewire.includes.sortable-th',[
-                    'name' => 'name',
+                    'name' => 'username',
                      'displayName' => 'Name'
                 ])
+                @include('livewire.includes.sortable-th',[
+                    'name' => 'email',
+                     'displayName' => 'Email'
+                ])
+                @include('livewire.includes.sortable-th',[
+                    'name' => 'model_id',
+                     'displayName' => 'Role'
+                ])
+                @include('livewire.includes.sortable-th',[
+                    'name' => 'logged_in',
+                     'displayName' => 'Logged in'
+                ])
+                <th scope="col" class="px-6 py-3">
+                    Last login time
+                </th>
                 <th scope="col" class="px-6 py-3 flex justify-end">
                     Action
                 </th>
             </tr>
             </thead>
             <tbody>
-            @foreach($roles as $role)
-                <tr wire:key="{{$role->id}}"
+            @foreach($users as $user)
+                <tr wire:key="{{$user->id}}"
                     class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        {{ $role->name }}
+                        {{ $user->username }}
+                    </th>
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{ $user->email }}
+                    </th>
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{ $user->role_name }}
+                    </th>
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        @if( $user->logged_in =='1' )
+                            <i class="fa-regular fa-circle-check text-green-600 fa-xl"></i>
+                        @else
+                            <i class="fa-regular fa-circle-xmark text-red-700 fa-xl"></i>
+                        @endif
+                    </th>
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        @if($user->last_login_time)
+                            {{ $user->getLastLoginTime() }}
+                        @else
+                            <p>not available</p>
+                        @endif
                     </th>
                     <td class="px-6 py-4 text-right space-x-2">
+                        @if ($user->trashed())
+                            @role('admin')
+                            <x-link.primary href="{{ route('admin.users.trashed.restore' , $user->id) }}" class="px-2.5 py-2.5 text-xs font-medium">Restore</x-link.primary>
+                            <x-link.btn-danger href="{{ route('admin.users.trashed.destroy' , $user->id) }}" class="px-2.5 py-2.5 text-xs font-medium">Force Delete</x-link.btn-danger>
+                            @endrole
+                            @role('member')
+                            <span class="px-2.5 py-2.5 text-xs font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition ease-in-out duration-150">Deleted</span>
+                            @endrole
+                        @else
                         <x-link.btn-primary
-                            href="{{ route('admin.roles.edit' , $role) }}"
+                            href="{{ route('admin.users.edit' , $user) }}"
                             class="px-2.5 py-2.5 text-xs font-medium"><i class="fa-solid fa-pen-to-square"></i>
                         </x-link.btn-primary>
 
                         <x-button.danger type="button"
                                          class="px-2.5 py-2.5 text-xs font-medium"
-                                         onclick="confirm('Are you sure you want to delete {{ $role->name }} ?') || event.stopImmediatePropagation()"
-                                         wire:click="delete({{ $role->id }})">
+                                         onclick="confirm('Are you sure you want to delete {{ $user->username }} ?') || event.stopImmediatePropagation()"
+                                         wire:click="delete({{ $user->id }})">
                             <i class="fa-solid fa-trash-can"></i>
                         </x-button.danger>
-
-{{--                        <x-button.danger type="button"--}}
-{{--                                         data-modal-target="popup-delete"--}}
-{{--                                         data-modal-toggle="popup-delete"--}}
-{{--                                         class="px-2.5 py-2.5 text-xs font-medium"--}}
-{{--                                         wire:click="setDeleteId({{ $role->id }})">--}}
-{{--                            <i class="fa-solid fa-trash-can"></i>--}}
-{{--                        </x-button.danger>--}}
+                        @endif
                     </td>
                 </tr>
             @endforeach
@@ -61,7 +98,7 @@
             <x-items-per-page/>
         </div>
         <div class="px-4 py-4">
-            {{ $roles->links() }}
+            {{ $users->links() }}
         </div>
     @else
         <div class="flex flex-col justify-center items-center h-40 space-y-4">
@@ -70,7 +107,7 @@
         </div>
     @endif
 
-{{--    DELETE MODAL--}}
+    {{--    DELETE MODAL--}}
 {{--    <div id="popup-delete" wire:ignore.self tabindex="-1" class="hidden">--}}
 {{--        <x-modal.default>--}}
 {{--            <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="popup-delete">--}}
