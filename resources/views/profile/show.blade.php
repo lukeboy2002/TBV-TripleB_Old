@@ -8,8 +8,9 @@
             @endif
 
             @role('member')
+                <livewire:profile.update-member-information-form :user="$user" />
 
-            <x-main-layout.hr class="py-8"/>
+                <x-main-layout.hr class="py-8"/>
             @endrole
 
             @if (Laravel\Fortify\Features::enabled(Laravel\Fortify\Features::updatePasswords()))

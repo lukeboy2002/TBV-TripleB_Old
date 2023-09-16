@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('image', 2048)->nullable();
             $table->text('bio')->nullable();
             $table->string('city')->nullable();
-            $table->timestamp('birthdate')->nullable();
+            $table->date('birthdate')->nullable();
             $table->integer('points')->nullable();
             $table->integer('played_games')->nullable();
             $table->integer('won_games')->nullable();
