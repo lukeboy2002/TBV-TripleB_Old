@@ -4,12 +4,6 @@
         <div class="flex items-center">
             <x-search/>
         </div>
-        <div class="pr-2">
-{{--            <x-link.btn-primary href="{{ route('admin.users.invite') }}" class="px-5 py-2.5 text-sm font-medium">--}}
-            <x-link.btn-primary href="#" class="px-5 py-2.5 text-sm font-medium">
-                Invite User
-            </x-link.btn-primary>
-        </div>
     </div>
     @if (!$users->isEmpty())
         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">

@@ -15,7 +15,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
+
+//CREATE USER AFTER INVITATION
+Route::get('user/create', [\App\Http\Controllers\UserController::class, 'create'] )->name('user.create')->middleware('HasInvitation');
+Route::post('user/store', [\App\Http\Controllers\UserController::class, 'store'])->name('user.store');
+
 
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',])->group(function () {
     Route::get('/dashboard', function () {
@@ -35,7 +40,8 @@ Route::prefix('admin')->name('admin.')->middleware(['auth:web', config('jetstrea
     Route::resource('users', \App\Http\Controllers\Admin\UserController::class);
 
     Route::post('member', [\App\Http\Controllers\admin\Membercontroller::class, 'upload'])->name('member.upload');
-
+//    Route::get('invite', \App\Http\Controllers\Admin\InvitationController::class)->name('invitations.index');
+    Route::get('invite', \App\Livewire\Admin\UserInvitation::class)->name('invitations.index');
 
     Route::post('/permissions/{permission}/roles', [\App\Http\Controllers\Admin\PermissionController::class, 'assignRole'])->name('permissions.roles');
     Route::delete('/permissions/{permission}/roles/{role}', [\App\Http\Controllers\Admin\PermissionController::class, 'removeRole'])->name('permissions.roles.revoke');
