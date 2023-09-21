@@ -5,7 +5,8 @@
     </x-slot>
 
     <x-card.default>
-        <form action="#" method="POST" enctype="multipart/form-data" class="space-y-6">
+        <x-main-layout.heading>Invite User</x-main-layout.heading>
+        <form action="#" method="POST" enctype="multipart/form-data" class="space-y-2">
             @csrf
             <div>
                 <x-form.label for="email" value="Email" />
@@ -17,6 +18,7 @@
             </div>
         </form>
 
+        <x-main-layout.heading>Invited User</x-main-layout.heading>
         <div class="flex justify-between items-center space-x-4 pb-4 pt-2">
             <div class="flex items-center">
                 <x-search/>
