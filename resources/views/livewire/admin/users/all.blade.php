@@ -4,17 +4,12 @@
         <div class="flex items-center">
             <x-search/>
         </div>
-        <div class="pr-2">
-{{--            <x-link.btn-primary href="{{ route('admin.users.invite') }}" class="px-5 py-2.5 text-sm font-medium">--}}
-            <x-link.btn-primary href="#" class="px-5 py-2.5 text-sm font-medium">
-                Invite User
-            </x-link.btn-primary>
-        </div>
     </div>
     @if (!$users->isEmpty())
         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
+                <th scope="col" class="px-6 py-3"></th>
                 @include('livewire.includes.sortable-th',[
                     'name' => 'username',
                      'displayName' => 'Name'
@@ -43,6 +38,9 @@
             @foreach($users as $user)
                 <tr wire:key="{{$user->id}}"
                     class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        <img src="{{ asset('storage/' . $user->profile_photo_path) }}" alt="{{ $user->username }}" class="h-10 w-auto rounded-full" >
+                    </th>
                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                         {{ $user->username }}
                     </th>

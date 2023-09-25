@@ -32,6 +32,7 @@ class All extends Component
 
     public function delete(User $user){
         $user->delete();
+        session()->flash('success', 'User deleted successfully');
     }
 
     public function setSortBy($sortByField){
