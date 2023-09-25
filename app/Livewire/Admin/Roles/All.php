@@ -31,6 +31,9 @@ class All extends Component
 
     public function delete(Role $role){
         $role->delete();
+
+        session()->flash('success', 'Role deleted successfully');
+
     }
 //    public function setDeleteId($id) {
 //        $this->delete_id = $id;

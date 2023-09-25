@@ -35,6 +35,8 @@ class All extends Component
 
     public function delete(Permission $permission){
         $permission->delete();
+
+        session()->flash('success', 'Role deleted successfully');
     }
 
 //    public function setDeleteId($id) {

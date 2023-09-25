@@ -34,7 +34,6 @@ class User extends Authenticatable implements MustVerifyEmail
         'invited_by',
         'password',
         'email_verified_at',
-        'image',
         'logged_in',
         'last_login_time',
         'last_login_ip',

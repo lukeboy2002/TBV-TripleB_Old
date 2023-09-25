@@ -10,12 +10,13 @@
             @csrf
             <div>
                 <x-form.label for="email" value="Email" />
-                <x-form.input wire:model="email" id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="email" />
+                <x-form.input wire:model="email" id="email" class="block mt-1 w-full" type="email" name="email" required autocomplete="email" />
                 <x-form.input-error for="email" class="mt-2" />
             </div>
             <div class="flex justify-end space-x-2">
                 <x-button.primary wire:click.prevent="create" class="px-3 py-2 text-xs font-medium">Save</x-button.primary>
             </div>
+            <x-loading />
         </form>
 
         <x-main-layout.heading>Invited User</x-main-layout.heading>
@@ -65,6 +66,7 @@
                                              wire:click="delete({{ $invitation->id }})">
                                 <i class="fa-solid fa-trash-can"></i>
                             </x-button.danger>
+                            <x-loading />
                         </td>
                     </tr>
                 @endforeach

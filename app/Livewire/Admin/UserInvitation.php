@@ -71,7 +71,10 @@ class UserInvitation extends Component
 
         Mail::to($invitation->get('email'))->send(new DeleteUserInvitation($mailData));
 
+        session()->flash('success', 'Invitation deleted successfully. A mail is been send to '.$invitation->email);
+
         $invitation->delete();
+        $this->resetPage();
     }
 
     public function setSortBy($sortByField){

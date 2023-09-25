@@ -80,7 +80,6 @@
     </svg>
 @endif
 
-
 {{--@if ($name === 'error')--}}
 {{--    <svg {{ $attributes(['class' => 'w-6 h-6 ']) }}--}}
 {{--         fill="none"--}}

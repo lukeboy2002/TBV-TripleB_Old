@@ -45,5 +45,4 @@ class Member extends Model implements HasMedia
         $this->addMediaConversion('thumb')
             ->fit(Manipulations::FIT_MAX, 1000, 1000);
     }
-
 }
